@@ -25,7 +25,9 @@ tags:
 dependencies: {}
 
 # The URL to any online docs
-documentation: http://docs.example.com
+documentation: https://github.com/zilux/tools-collections/blob/main/README.md
+
+repository: https://github.com/zilux/tools-collections
 
 # The URL to the homepage of the collection/project
 homepage: http://example.com
