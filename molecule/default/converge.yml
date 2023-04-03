@@ -17,6 +17,6 @@
       ansible.builtin.copy:
         src: /etc/hosts
         dest: /tmp/hosts-from-controller
-    - name: "Include zilux.csv_report"
+    - name: "Include zilux.tools.csv_report"
       ansible.builtin.include_role:
-        name: "zilux.csv_report"
+        name: "zilux.tools.csv_report"
