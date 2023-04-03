@@ -23,7 +23,6 @@
       loop_control:
         label: "{{ item.outcome_in }}"
 
-
 - name: Show info when not mailed
   run_once: true
   delegate_to: "{{ delegate_host }}"
