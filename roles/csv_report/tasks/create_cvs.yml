@@ -31,7 +31,7 @@
 
     - name: Create header for cvs
       ansible.builtin.debug:
-        msg: "{{  header | replace(\"'\", '') }}"
+        msg: "{{ header | replace(\"'\", '') }}"
 
     - name: Print result if not mailed
       ansible.builtin.debug:
