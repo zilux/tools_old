@@ -1,2 +1,38 @@
 ---
 # defaults file for install_virthost
+
+virt_rpms:
+  - libvirt
+  - virt-install
+  - virt-manager
+  - virt-viewer
+  - edk2-ovmf
+  - swtpm
+  - qemu-img
+  - guestfs-tools
+  - libosinfo
+  - tuned
+
+
+virt_drivers:
+  - virtqemud.service
+  - virtqemud-ro.socket
+  - virtqemud-admin.socket
+  - virtinterfaced.service
+  - virtinterfaced-ro.socket
+  - virtinterfaced-admin.socket
+  - virtnetworkd.service
+  - virtnetworkd-ro.socket
+  - virtnetworkd-admin.socket
+  - virtnodedevd.service
+  - virtnodedevd-ro.socket
+  - virtnodedevd-admin.socket
+  - virtnwfilterd.service
+  - virtnwfilterd-ro.socket
+  - virtnwfilterd-admin.socket
+  - virtsecretd.service
+  - virtsecretd-ro.socket
+  - virtsecretd-admin.socket
+  - virtstoraged.service
+  - virtstoraged-ro.socket
+  - virtstoraged-admin.socket

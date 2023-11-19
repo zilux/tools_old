@@ -1,2 +1,50 @@
 ---
 # tasks file for install_virthost
+
+- name: Gather facts
+  ansible.builtin.setup:    
+
+- name: Check Virtualisation Support with lscpu
+  ansible.builtin.command: /bin/lscpu
+  register: lscpu_info 
+
+- name: Create hash from stdout lscpu command 
+  vars:
+    line_part: "{{ item.split(':')}}"
+  ansible.builtin.set_fact:
+    lscpu_hash: "{{ lscpu_hash | default({},true) | combine( { line_part.0: line_part.1.strip() } ) }}"
+  loop: "{{ lscpu_info.stdout_lines }}"
+  loop_control:
+    label: insert {{ line_part.0 }} 
+
+- name: Show type of CPU
+  ansible.builtin.debug:
+    msg: We have an {{ (lscpu_hash.Virtualization == 'VT-x') | ternary('Intel CPU' , 'AMD CPU') }}
+
+- name: Install needed software and update
+  ansible.builtin.dnf:
+    name: "{{ virt_rpms }}"
+    state: latest
+    update_cache: yes
+  become: true    
+    
+- name: Enable daemons
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: started
+    enabled: true  
+  loop: "{{ virt_drivers }}"    
+  become: true
+
+
+#- name: Validate Host Virtualization Setup
+#  ansible.builtin.command: virt-host-validate qemu
+#  register: virt_validate
+#
+#- debug: var=virt_validate
+#
+# We need to insert/check on intel_iommu=on iommu=pt .....
+
+- name: Set tuned profile to virtual-host
+  ansible.builtin.command: tuned-adm profile virtual-host
+  become: true
