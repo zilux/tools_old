@@ -21,6 +21,13 @@
   ansible.builtin.debug:
     msg: We have an {{ (lscpu_hash.Virtualization == 'VT-x') | ternary('Intel CPU' , 'AMD CPU') }}
 
+- name: Update system
+  ansible.builtin.dnf:
+    name: '*'
+    state: latest  
+    update_cache: yes
+  become: true    
+
 - name: Install needed software and update
   ansible.builtin.dnf:
     name: "{{ virt_rpms }}"
@@ -34,6 +41,11 @@
     state: started
     enabled: true  
   loop: "{{ virt_drivers }}"    
+  become: true
+
+- name: reboot
+  ansible.builtin.reboot:
+    reboot_timeout: 600
   become: true
 
 
