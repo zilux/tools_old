@@ -1,0 +1,18 @@
+# ansible-lint -L to see all rules
+
+warn_list:
+  - fqcn[action-core]
+  - yaml[trailing-spaces]
+  - yaml[line-length]
+
+skip_list:
+  - run-once[task]
+  - package-latest
+
+var_naming_pattern: "^[a-z_][a-z0-9_]*$"
+
+# Enable checking of loop variable prefixes in roles
+loop_var_prefix: "^(__|{role}_)"
+
+offline: true
+
