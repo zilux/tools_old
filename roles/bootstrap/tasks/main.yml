@@ -9,7 +9,7 @@
     name: "{{ bootstrap_group_name }}"
     gid: "{{ bootstrap_group_id }}"
 
-- name: Add user
+- name: Add to group wheel user {{ bootstrap_user_name }}
   ansible.builtin.user:
     name: "{{ bootstrap_user_name }}"
     uid: "{{ bootstrap_user_id }}"
