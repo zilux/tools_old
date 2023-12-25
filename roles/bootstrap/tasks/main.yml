@@ -24,7 +24,7 @@
     state: present
     key: "{{ lookup('file', 'files/id_rsa.pub') }}"
 
-- name: Modifu group wheel for sudo
+- name: Modify group wheel for sudo
   ansible.builtin.lineinfile:
     dest: /etc/sudoers
     state: present
