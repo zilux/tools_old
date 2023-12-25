@@ -40,7 +40,7 @@
   ansible.builtin.service:
     name: "{{ item }}"
     state: started
-    enabled: true  
+    enabled: true
   loop: "{{ virt_drivers }}"
   become: true
 
@@ -49,15 +49,15 @@
     reboot_timeout: 600
   become: true
 
-
-#- name: Validate Host Virtualization Setup
-#  ansible.builtin.command: virt-host-validate qemu
-#  register: virt_validate
+# - name: Validate Host Virtualization Setup
+#   ansible.builtin.command: virt-host-validate qemu
+#   register: virt_validate
 #
-#- debug: var=virt_validate
+# - debug: var=virt_validate
 #
 # We need to insert/check on intel_iommu=on iommu=pt .....
 
 - name: Set tuned profile to virtual-host
   ansible.builtin.command: tuned-adm profile virtual-host
   become: true
+  changed_when: false
