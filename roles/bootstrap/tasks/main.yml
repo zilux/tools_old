@@ -18,7 +18,7 @@
     shell: /bin/bash
     # password: "{{ bootstrap_password|string | password_hash('sha256', 'mysecretsalt')}}"
 
-- name: install ssh key user harry
+- name: install ssh key user {{ bootstrap_user_name }}
   ansible.posix.authorized_key:
     user: "{{ bootstrap_user_name }}" 
     state: present
