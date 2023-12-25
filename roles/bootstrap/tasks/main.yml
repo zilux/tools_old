@@ -1,49 +1,49 @@
 ---
 # tasks file for roles/basehost
-- name: Start baseline 
-  debug:
+- name: Start baseline
+  ansible.builtin.debug:
     msg: let's go
 
-- name: add group
-  group:
+- name: Add group {{ bootstrap_group_name }}
+  ansible.builtin.group:
+    name: "{{ bootstrap_group_name }}"
+    gid: "{{ bootstrap_group_id }}"
+
+- name: Add user
+  ansible.builtin.user:
     name: "{{ bootstrap_user_name }}"
-    gid: "{{ bootstrap_group_id }}" 
-    
-- name: add user
-  user:
-    name: "{{ bootstrap_user_name }}"
-    uid: "{{ bootstrap_user_id }}" 
-    group: "{{ bootstrap_group_name }}" 
+    uid: "{{ bootstrap_user_id }}"
+    group: "{{ bootstrap_group_name }}"
     groups: wheel
     shell: /bin/bash
     # password: "{{ bootstrap_password|string | password_hash('sha256', 'mysecretsalt')}}"
 
-- name: install ssh key user {{ bootstrap_user_name }}
+- name: Install ssh key user {{ bootstrap_user_name }}
   ansible.posix.authorized_key:
-    user: "{{ bootstrap_user_name }}" 
+    user: "{{ bootstrap_user_name }}"
     state: present
     key: "{{ lookup('file', 'files/id_rsa.pub') }}"
 
-- name: add user to sudoers file
-  lineinfile:
+- name: Modifu group wheel for sudo
+  ansible.builtin.lineinfile:
     dest: /etc/sudoers
     state: present
     regexp: '^%wheel'
     line: '%wheel ALL=(ALL) NOPASSWD: ALL'
     validate: visudo -cf %s
 
-- name: update system
-  yum:
-   name: all
+- name: Update system
+  ansible.builtin.yum:
+   name: '*'
    state: latest
-  failed_when: false
 
-- name: install some rpm's
-  yum:
-    name: "{{ basehost_rpms }}" 
+
+- name: Install some rpm's
+  ansible.builtin.yum:
+    name: "{{ basehost_rpms }}"
     state: present
 
-- name: start chronyd
-  service:
+- name: Start chronyd
+  ansible.builtin.service:
     name: chronyd
     state: started
