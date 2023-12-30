@@ -28,6 +28,7 @@
 
 - name: Enable service snapd
   ansible.builtin.systemd:
+     name: snapd
      state: started 
      enabled: true
 
