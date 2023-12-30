@@ -4,3 +4,5 @@
 
 snap_epel9_repo: https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
 snap_epel8_repo: https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+
+snap_rpm: snapd

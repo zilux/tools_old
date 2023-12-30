@@ -1,9 +1,9 @@
 ---
 # tasks file for roles/snap
 
-- debug: var=ansible_facts.distribution_major_version
+# - debug: var=ansible_facts.distribution_major_version
 
-- debug: var=ansible_facts.distribution
+# - debug: var=ansible_facts.distribution
 
 - name: Enable epel repo 
   ansible.builtin.package:
@@ -12,3 +12,29 @@
   when: 
     - ansible_facts.distribution_major_version == 9    
     - ansible_facts.distribution == 'RedHat'
+
+- name: Enable epel repo 
+  ansible.builtin.package:
+    name: "{{ snap_epel8_repo }}"
+    state: present 
+  when: 
+    - ansible_facts.distribution_major_version == 8    
+    - ansible_facts.distribution == 'RedHat'
+
+- name: Install snapd
+  ansible.builtin.package: 
+    name: "{{ snap_rpm }}" 
+    state: present 
+
+- name: Enable service snapd
+  ansible.builtin.systemd:
+     state: started 
+     enabled: true
+
+- name: Create link
+  ansible.builtin.file: 
+    src: /var/lib/snapd/snap
+    dest: /snap 
+    owner: root
+    group: root
+    state: link
