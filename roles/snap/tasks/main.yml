@@ -1,6 +1,10 @@
 ---
 # tasks file for roles/snap
 
+- debug: var=ansible_facts.distribution_major_version
+
+- debug: var=ansible_facts.distribution
+
 - name: Enable epel repo 
   ansible.builtin.package:
     name: "{{ snap_epel9_repo }}"
