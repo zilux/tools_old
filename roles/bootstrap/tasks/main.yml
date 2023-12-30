@@ -40,7 +40,7 @@
 
 - name: Install some rpm's
   ansible.builtin.yum:
-    name: "{{ basehost_rpms }}"
+    name: "{{ baseline_rpms }}"
     state: present
 
 - name: Start chronyd

@@ -1,6 +1,6 @@
 ---
 # defaults file for roles/basehost
-basehost_rpms:
+baseline_rpms:
   - lsof
   - tar
   - mlocate
