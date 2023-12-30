@@ -1,0 +1,10 @@
+---
+# tasks file for roles/snap
+
+- name: Enable epel repo 
+  ansible.builtin.package:
+    name: "{{ snap_epel9_repo }}"
+    state: present 
+  when: 
+     - ansible_facts.distribution_major_version == 9    
+     - ansible_facts.distribution == 'Red Hat'
